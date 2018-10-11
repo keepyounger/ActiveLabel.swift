@@ -29,7 +29,7 @@ public protocol ActiveLabelDelegate: class {
     func didSelect(_ text: String, type: ActiveType)
 }
 
-public typealias ConfigureLinkAttribute = (ActiveType, [NSAttributedStringKey : Any], Bool) -> ([NSAttributedStringKey : Any])
+public typealias ConfigureLinkAttribute = (ActiveType, [NSAttributedString.Key : Any], Bool) -> ([NSAttributedString.Key : Any])
 typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveType)
 
 open class ActiveLabel: UILabel {
@@ -43,35 +43,35 @@ open class ActiveLabel: UILabel {
     
     open var configureLinkAttribute: ConfigureLinkAttribute?
     
-    open var mentionTextAttributes: [NSAttributedStringKey : Any] = [:] {
+    open var mentionTextAttributes: [NSAttributedString.Key : Any] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var hashtagTextAttributes: [NSAttributedStringKey : Any] = [:] {
+    open var hashtagTextAttributes: [NSAttributedString.Key : Any] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var URLTextAttributes: [NSAttributedStringKey : Any] = [:] {
+    open var URLTextAttributes: [NSAttributedString.Key : Any] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var customTextAttributes: [ActiveType : [NSAttributedStringKey : Any]] = [:] {
+    open var customTextAttributes: [ActiveType : [NSAttributedString.Key : Any]] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var mentionSelectedTextAttributes: [NSAttributedStringKey : Any] = [:] {
+    open var mentionSelectedTextAttributes: [NSAttributedString.Key : Any] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var hashtagSelectedTextAttributes: [NSAttributedStringKey : Any] = [:] {
+    open var hashtagSelectedTextAttributes: [NSAttributedString.Key : Any] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var URLSelectedLTextAttributes: [NSAttributedStringKey : Any] = [:] {
+    open var URLSelectedLTextAttributes: [NSAttributedString.Key : Any] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
-    open var customSelectedTextAttributes: [ActiveType : [NSAttributedStringKey : Any]] = [:] {
+    open var customSelectedTextAttributes: [ActiveType : [NSAttributedString.Key : Any]] = [:] {
         didSet { updateTextStorage(parseText: false) }
     }
     
@@ -330,8 +330,8 @@ open class ActiveLabel: UILabel {
         var range = NSRange(location: 0, length: 0)
         var attributes = mutAttrString.attributes(at: 0, effectiveRange: &range)
         
-        attributes[NSAttributedStringKey.font] = font!
-        attributes[NSAttributedStringKey.foregroundColor] = textColor
+        attributes[NSAttributedString.Key.font] = font!
+        attributes[NSAttributedString.Key.foregroundColor] = textColor
         mutAttrString.addAttributes(attributes, range: range)
         
         for (type, elements) in activeElements {
@@ -344,7 +344,7 @@ open class ActiveLabel: UILabel {
             }
             
             if let highlightFont = hightlightFont {
-                attributes[NSAttributedStringKey.font] = highlightFont
+                attributes[NSAttributedString.Key.font] = highlightFont
             }
             
             if let configureLinkAttribute = configureLinkAttribute {
@@ -395,12 +395,12 @@ open class ActiveLabel: UILabel {
         var range = NSRange(location: 0, length: 0)
         var attributes = mutAttrString.attributes(at: 0, effectiveRange: &range)
         
-        let paragraphStyle = attributes[NSAttributedStringKey.paragraphStyle] as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
+        let paragraphStyle = attributes[NSAttributedString.Key.paragraphStyle] as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         paragraphStyle.alignment = textAlignment
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.minimumLineHeight = minimumLineHeight > 0 ? minimumLineHeight: self.font.pointSize * 1.14
-        attributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
+        attributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
         mutAttrString.setAttributes(attributes, range: range)
         
         return mutAttrString
@@ -431,7 +431,7 @@ open class ActiveLabel: UILabel {
         }
         
         if let highlightFont = hightlightFont {
-            attributes[NSAttributedStringKey.font] = highlightFont
+            attributes[NSAttributedString.Key.font] = highlightFont
         }
         
         if let configureLinkAttribute = configureLinkAttribute {
